@@ -1,12 +1,13 @@
-const mysql = require('mysql');
-const dbConfig = require('./db.config');
-
-var con = mysql.createPool({
-    host: dbConfig.HOST,
-    user: dbConfig.USER,
-    password: dbConfig.PASSWORD,
-    database: dbConfig.DB,
-    multipleStatements: true,
-});
-
-module.exports = con;
+const mysql = require("mysql");
+if (process.env.JAWSDB_URL) {
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+  connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "burgers_db"
+  });
+}
+connection.connect();
+module.exports = connection;
